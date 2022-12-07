@@ -7,7 +7,7 @@ android {
     def has = project.hasProperty('packageType')
     print(has)
     if(has){
-        print(project.property(packageType))
+        print(project.property('packageType'))
     }
 
     compileSdk 30
