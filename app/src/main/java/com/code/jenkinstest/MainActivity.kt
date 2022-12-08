@@ -8,5 +8,6 @@ class MainActivity : AppCompatActivity() {
         //主分支
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 }
