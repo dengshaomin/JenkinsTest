@@ -68,7 +68,6 @@ pipeline {
                             for (int j = 0; j < entries.length; j++) {
                                 def entry = entries[j]
                                 commit_log += "${i+1}.${changeTime(entry.timestamp)}: ${entry.msg}\n"
-                                echo "${commit_log}"
                             }
                         }
                         build = build.previousBuild
