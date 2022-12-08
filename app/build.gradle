@@ -3,31 +3,48 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-android {
-    def has = project.hasProperty('packageType')
-    print(has)
-    if(has){
-        print(project.property('packageType'))
+void jFile(){
+    def file = file("../jfile.log")
+    if(file.exists()){
+        file.delete()
     }
-
+    file.createNewFile()
+    def pro = new Properties()
+    def version = rootProject.ext.versionName
+    def packageName = rootProject.ext.applicationId
+    def outStream = new FileOutputStream(file)
+    pro.store(outStream,"${version}\n${packageName}")
+    outStream.close()
+}
+android {
+    jFile()
     compileSdk 30
-
     defaultConfig {
-        applicationId "com.code.jenkinstest"
-        minSdk 21
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
-
+        applicationId rootProject.ext.applicationId
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        config {
+            storeFile file("../debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -35,6 +52,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    // 设置apk包名
+//    applicationVariants.all { variant ->
+//        def buildType = variant.buildType.name
+//        variant.outputs.all {
+//            def appFileName = ''
+//            def versionName = rootProject.ext.android["versionName"]
+//            def packageType = ""
+//            def jenkinsId = ""
+//            if (mIsJenkins.toBoolean()) {
+//                appFileName = productFlavor + buildType + "_v" + rootProject.ext.android["versionName"] + "_" + mJenkinsOpsTaskId + '.apk'
+//            } else {
+//                appFileName = productFlavor + buildType + "_v" + rootProject.ext.android["versionName"] + '.apk'
+//            }
+//            outputFileName = appFileName
+//        }
+//    }
 }
 
 dependencies {
