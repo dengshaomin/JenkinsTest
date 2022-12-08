@@ -42,21 +42,20 @@ pipeline {
                 
             }
         }
-        stage('fecth code') {
-            steps {
-                script{
-                    try {
-                        echo "start fetch code"
-                        git branch: 'master', credentialsId: 'f4b64596-e95b-4af3-88dd-46b9f3cac084', url: 'git@github.com:dengshaomin/JenkinsTest.git'
-                        // git url: 'git@github.com:dengshaomin/JenkinsTest.git', branch: 'master'
-                        echo "fnish fetch code"
-                    } catch(Exception e){
-                        echo "fail fetch code"
-                        echo "${e.message}"
-                    }
-                }
-            }
-        }
+//         stage('fecth code') { //不适用scm时手动拉代码（不能使用GitParameter 分支或标签参数）；scm会自动拉代码
+//             steps {
+//                 script{
+//                     try {
+//                         echo "start fetch code"
+//                         git branch: 'master', credentialsId: 'f4b64596-e95b-4af3-88dd-46b9f3cac084', url: 'git@github.com:dengshaomin/JenkinsTest.git'
+//                         echo "fnish fetch code"
+//                     } catch(Exception e){
+//                         echo "fail fetch code"
+//                         echo "${e.message}"
+//                     }
+//                 }
+//             }
+//         }
         stage('commitlog') {
             steps {
                 script {
