@@ -64,7 +64,6 @@ pipeline {
                     while(build != null){
                         def changeLogSets = build.changeSets
                         for (int i = 0; i < changeLogSets.size(); i++) {
-                            echo "debug 0"
                             def entries = changeLogSets[i].items
                             for (int j = 0; j < entries.length; j++) {
                                 def entry = entries[j]
