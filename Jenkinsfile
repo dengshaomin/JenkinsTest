@@ -83,6 +83,7 @@ pipeline {
                 echo "packageType:${packageType}"
                 script {
                     sh "chmod +x gradlew"
+                    sh "rm -rf app/build"
                     sh "./gradlew clean assembleRelease -P packageType=${packageType}" //-p  write params to app gradle.properties
                 }
                 
