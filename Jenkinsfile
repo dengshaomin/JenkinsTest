@@ -14,7 +14,7 @@ def send_email_from = "pe_app_ci@nioint.com"
 def pgy_download_url = ""
 def pgy_build_id = ""
 def app_name = ""
-def app_size = ""
+def app_size = 0
 def start_build_time = 0
 def apk_root_dir = "apks"
 def pgy_build_key = ""
@@ -118,10 +118,9 @@ pipeline {
                         def json = readJSON text: result // !need pipeline-utility-steps plugin 
                         echo "$json"
                         echo "${json.data.buildFileSize}"
-                        def v = (json.data.buildFileSize as int) /(1024*1024)
-                        echo "size${v}"
-                        def v1 = Math.round(app_size*100)/100
-                        app_size = "${v1}M"
+                        def size = json.data.buildFileSize /(1024*1024)
+                        echo "size${size}"
+                        app_size = Math.round(app_size*100)/100
                         echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
                         pgy_build_key = json.data.buildKey
@@ -269,7 +268,7 @@ pipeline {
 //
 //                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>蒲公英 build id：${pgy_build_id}</em></p>
 //                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App名称：${app_name}</em></p>
-//                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App大小：${app_size}</em></p>
+//                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App大小：${app_size}M</em></p>
 //                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>提交日志：</em></p>
 //                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>${commit_log}</em></p>
 //                                                                                     </div>
