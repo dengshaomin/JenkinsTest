@@ -117,7 +117,7 @@ pipeline {
                         def result = sh(returnStdout: true, script: "curl -F 'file=@$app_upload_file' -F 'buildDescription=$commit_log' -F '_api_key=$pgy_api_key' https://www.pgyer.com/apiv2/app/upload").trim()
                         def json = readJSON text: result // !need pipeline-utility-steps plugin
                         echo "$json"
-                        def v =  json.data.buildFileSize/(1024*1024)
+                        def v =  (json.data.buildFileSize as int)/(1024*1024)
                         echo "$v"
                         try{
                             v = (v as String).substring(0,5)
