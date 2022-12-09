@@ -60,16 +60,15 @@ pipeline {
                 script {
                     echo "start get commitlog"
                     def build = currentBuild
+                    def count = 1
                     while (build != null) {
                         def changeLogSets = build.changeSets
-                        def count = 1
                         for (int i = 0; i < changeLogSets.size(); i++) {
                             def entries = changeLogSets[i].items
                             for (int j = 0; j < entries.length; j++) {
                                 def entry = entries[j]
                                 commit_log += "${count}.${entry.msg}(${entry.author}-${changeTime(entry.timestamp)})<br>"
                                 count++
-                                echo "${count}"
                             }
                         }
                         build = build.previousBuild
