@@ -121,23 +121,13 @@ pipeline {
                         def size = (json.data.buildFileSize as int) /(1024*1024)
                         echo "size${size}"
                         try{
-                        app_size = (size as double).round(size*100)/100
-                        echo "app_size:${app_size}"
+                            def x = 1.234
+                            echo "zzz:${Math.round(x*100)/100}"
+                            app_size = (size as double).round(size*100)/100
                         }catch(Exception e){
-                            echo "${e.message}"
+
                         }
-                        try{
-                                                size = (size as double).round(size*100)/100
-                                                echo "size:${size}"
-                                                }catch(Exception e){
-                                                    echo "${e.message}"
-                                                }
-                        try{
-                                                                        size = (size as int).round(size*100)/100
-                                                                        echo "size:${size}"
-                                                                        }catch(Exception e){
-                                                                            echo "${e.message}"
-                                                                        }
+                        echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
                         pgy_build_key = json.data.buildKey
                         echo "debug_0"
