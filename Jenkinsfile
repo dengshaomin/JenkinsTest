@@ -39,7 +39,6 @@ pipeline {
                         }
                     }
                 }
-
             }
         }
 //         stage('fecth code') { //不适用scm时手动拉代码（不能使用GitParameter 分支或标签参数）；scm会自动拉代码
@@ -119,7 +118,7 @@ pipeline {
                         def json = readJSON text: result // !need pipeline-utility-steps plugin
                         echo "$json"
                         echo "${json.data.buildFileSize}"
-                        def v = json.data.buildFileSize/(1024*1024)
+                        float v = json.data.buildFileSize/(1024*1024)
                         app_size = Math.round( v* 100) /100
                         echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
