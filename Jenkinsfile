@@ -118,8 +118,10 @@ pipeline {
                         def json = readJSON text: result // !need pipeline-utility-steps plugin 
                         echo "$json"
                         echo "${json.data.buildFileSize}"
-                        app_size = (json.data.buildFileSize as int) /(1024*1024)
+                        def size = (json.data.buildFileSize as int) /(1024*1024)
+                        echo "size${size}"
                         app_size = Math.round(app_size*100)/100
+
                         echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
                         pgy_build_key = json.data.buildKey
