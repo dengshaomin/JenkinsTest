@@ -120,7 +120,7 @@ pipeline {
                         def v =  json.data.buildFileSize/(1024*1024)
                         try{
                             v = (v as String).substring(0,5)
-                        }catch{Exception e}{
+                        }catch(Exception e){
                         }
                         app_size = v
                         pgy_build_id = json.data.buildBuildVersion
