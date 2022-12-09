@@ -3,28 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-void jFile(){
-    def file = file("../jfile.log")
-    if(file.exists()){
-        file.delete()
-    }
-    file.createNewFile()
-    def pro = new Properties()
-    def version = rootProject.ext.versionName
-    def packageName = rootProject.ext.applicationId
-    def outStream = new FileOutputStream(file)
-    pro.store(outStream,"${version}\n${packageName}")
-    outStream.close()
-}
 android {
-    jFile()
     compileSdk 30
     defaultConfig {
-        applicationId rootProject.ext.applicationId
-        minSdk rootProject.ext.minSdk
-        targetSdk rootProject.ext.targetSdk
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        applicationId "com.code.jenkinstest"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName 1.0
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
