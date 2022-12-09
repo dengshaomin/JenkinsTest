@@ -38,7 +38,7 @@ pipeline {
                             break
                         }
                     }
-                    def x = 1.60349941253662109375
+                    def x = 1
                                         app_size = Math.round(x*100)/100
                                         echo "${app_size}"
                 }
