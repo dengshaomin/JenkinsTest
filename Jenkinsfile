@@ -119,7 +119,7 @@ pipeline {
                         def json = readJSON text: result // !need pipeline-utility-steps plugin
                         echo "$json"
                         echo "${json.data.buildFileSize}"
-                        app_size = json.data.buildFileSize
+                        app_size = Math.round(json.data.buildFileSize/(1024*1024) * 100) /100
 
                         echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
@@ -268,7 +268,7 @@ pipeline {
 
                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>蒲公英 build id：${pgy_build_id}</em></p>
                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App名称：${app_name}</em></p>
-                                                                                        <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App大小：${app_size.toFixed(2)}M</em></p>
+                                                                                        <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>App大小：${app_size}M</em></p>
                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>提交日志：</em></p>
                                                                                         <p style="margin: 0; font-size: 15px; text-align: left; mso-line-height-alt: 14.399999999999999px;"><em>${commit_log}</em></p>
                                                                                     </div>
