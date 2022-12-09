@@ -1,7 +1,7 @@
 def app_version = ""
 def commit_log = ""
 def app_version_file = "app/build.gradle"
-def app_build_file = "app/build/outputs/apk/release/app-release-unsigned.apk"
+def app_build_file = "app/build/outputs/apk/release/app-release.apk"
 def app_upload_file = ""
 def jenkins_build_time = 0
 def jenkins_build_id  = 0
@@ -23,7 +23,7 @@ pipeline {
     // parameters {
     //     choice choices: ['Test', 'Release'], description: '包类型', name: 'packageType'
     // }
-    
+
     stages {
         stage('init'){
             steps{
@@ -39,7 +39,7 @@ pipeline {
                         }
                     }
                 }
-                
+
             }
         }
 //         stage('fecth code') { //不适用scm时手动拉代码（不能使用GitParameter 分支或标签参数）；scm会自动拉代码
@@ -67,7 +67,7 @@ pipeline {
                             def entries = changeLogSets[i].items
                             for (int j = 0; j < entries.length; j++) {
                                 def entry = entries[j]
-                                commit_log += "${i+1}.${changeTime(entry.timestamp)}: ${entry.msg}\n"
+                                commit_log += "${i+1}.${entry.msg}(${changeTime(entry.timestamp)}) \n"
                             }
                         }
                         build = build.previousBuild
