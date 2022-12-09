@@ -119,7 +119,19 @@ pipeline {
                         echo "$json"
                         echo "${json.data.buildFileSize}"
                         float v = json.data.buildFileSize/(1024*1024)
-                        app_size = Math.round( v* 100) /100
+                        String[] strs = v.split("\\.")
+                        if(strs.size() > 0){
+                            app_size = strs[0]
+                            if(strs.size() > 1){
+                                if(strs[1].length() > 2){
+                                    app_size += ".${strs[1].substring(0,2)}"
+                                }else{
+                                    app_size += ".${ strs[1]}"
+                                }
+                            }
+                        }else{
+                            app_size = x
+                        }
                         echo "app_size:${app_size}"
                         pgy_build_id = json.data.buildBuildVersion
                         pgy_build_key = json.data.buildKey
