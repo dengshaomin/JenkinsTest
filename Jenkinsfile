@@ -38,6 +38,8 @@ pipeline {
                             break
                         }
                     }
+                    def x = 1.60349941253662109375
+                    echo "zz:${Math.round(x*100)/100}"
                 }
 
             }
@@ -56,93 +58,93 @@ pipeline {
 //                 }
 //             }
 //         }
-        stage('commitlog') {
-            steps {
-                script {
-                    echo "start get commitlog"
-                    def build = currentBuild
-                    while(build != null){
-                        def changeLogSets = build.changeSets
-                        def count = 1
-                        for (int i = 0; i < changeLogSets.size(); i++) {
-                            def entries = changeLogSets[i].items
-                            for (int j = 0; j < entries.length; j++) {
-                                def entry = entries[j]
-                                commit_log += "${count}.${entry.msg}(${changeTime(entry.timestamp)}) \n"
-                                count ++
-                            }
-                        }
-                        build = build.previousBuild
-                    }
-                    echo "commitlog：${commit_log}"
-                    echo "finish get commitlog"
-                }
-            }
-        }
-        stage('build') {
-            steps {
-                echo "start build apk.."
-                echo "packageType:${packageType}"
-                script {
-                    sh "chmod +x gradlew"
-                    sh "rm -rf app/build"
-                    sh "./gradlew clean assembleRelease -P packageType=${packageType}" //-p  write params to app gradle.properties
-                }
-                
-                echo "finish build apk"
-                script{
-                    start_build_time = currentBuild.timeInMillis
-                    try{
-                        sh "rm -rf ${apk_root_dir}"
-                    }catch(Exception e){
-                    }
-                    try{
-                        sh "mkdir ${apk_root_dir}"
-                    }catch(Exception e){
-                    }
-                    try{
-                        app_name = "${packageType}_${app_version}_${getPackageTime(start_build_time)}.apk"
-                        app_upload_file = "${apk_root_dir}/${app_name}"
-                        sh "mv ${app_build_file} ${app_upload_file}"
-                    }catch(Exception e){
-                    }
-                }
-            }
-        }
-        stage('upload pgy') {
-            steps {
-                script{
-                    try{
-                        echo "start upload pgy"
-                        def result = sh(returnStdout: true, script: "curl -F 'file=@$app_upload_file' -F 'buildDescription=$commit_log' -F '_api_key=$pgy_api_key' https://www.pgyer.com/apiv2/app/upload").trim()
-                        def json = readJSON text: result // !need pipeline-utility-steps plugin 
-                        echo "$json"
-                        echo "${json.data.buildFileSize}"
-                        def size = (json.data.buildFileSize as int) /(1024*1024)
-                        echo "size${size}"
-                        try{
-                            def x = 1.234
-                            echo "zzz:${Math.round(x*100)/100}"
-                            app_size = (size as double).round(size*100)/100
-                        }catch(Exception e){
-
-                        }
-                        echo "app_size:${app_size}"
-                        pgy_build_id = json.data.buildBuildVersion
-                        pgy_build_key = json.data.buildKey
-                        echo "debug_0"
-                        pgy_download_url = "https://www.pgyer.com/apiv2/app/install?_api_key=${pgy_api_key}&buildKey=${pgy_build_key}&buildPassword=${pgy_install_password}"
-                        if(json.code != 0){
-                            throw new RuntimeException("upload pgy fail")
-                        }
-                         echo "finish upload pgy"
-                    }catch(Exception e){
-                        throw new RuntimeException("upload pgy fail")
-                    }
-                    
-                }
-            }
-        }
+//         stage('commitlog') {
+//             steps {
+//                 script {
+//                     echo "start get commitlog"
+//                     def build = currentBuild
+//                     while(build != null){
+//                         def changeLogSets = build.changeSets
+//                         def count = 1
+//                         for (int i = 0; i < changeLogSets.size(); i++) {
+//                             def entries = changeLogSets[i].items
+//                             for (int j = 0; j < entries.length; j++) {
+//                                 def entry = entries[j]
+//                                 commit_log += "${count}.${entry.msg}(${changeTime(entry.timestamp)}) \n"
+//                                 count ++
+//                             }
+//                         }
+//                         build = build.previousBuild
+//                     }
+//                     echo "commitlog：${commit_log}"
+//                     echo "finish get commitlog"
+//                 }
+//             }
+//         }
+//         stage('build') {
+//             steps {
+//                 echo "start build apk.."
+//                 echo "packageType:${packageType}"
+//                 script {
+//                     sh "chmod +x gradlew"
+//                     sh "rm -rf app/build"
+//                     sh "./gradlew clean assembleRelease -P packageType=${packageType}" //-p  write params to app gradle.properties
+//                 }
+//
+//                 echo "finish build apk"
+//                 script{
+//                     start_build_time = currentBuild.timeInMillis
+//                     try{
+//                         sh "rm -rf ${apk_root_dir}"
+//                     }catch(Exception e){
+//                     }
+//                     try{
+//                         sh "mkdir ${apk_root_dir}"
+//                     }catch(Exception e){
+//                     }
+//                     try{
+//                         app_name = "${packageType}_${app_version}_${getPackageTime(start_build_time)}.apk"
+//                         app_upload_file = "${apk_root_dir}/${app_name}"
+//                         sh "mv ${app_build_file} ${app_upload_file}"
+//                     }catch(Exception e){
+//                     }
+//                 }
+//             }
+//         }
+//         stage('upload pgy') {
+//             steps {
+//                 script{
+//                     try{
+//                         echo "start upload pgy"
+//                         def result = sh(returnStdout: true, script: "curl -F 'file=@$app_upload_file' -F 'buildDescription=$commit_log' -F '_api_key=$pgy_api_key' https://www.pgyer.com/apiv2/app/upload").trim()
+//                         def json = readJSON text: result // !need pipeline-utility-steps plugin
+//                         echo "$json"
+//                         echo "${json.data.buildFileSize}"
+//                         def size = (json.data.buildFileSize as int) /(1024*1024)
+//                         echo "size${size}"
+//                         try{
+//                             def x = 1.234
+//                             echo "zzz:${Math.round(x*100)/100}"
+//                             app_size = (size as double).round(size*100)/100
+//                         }catch(Exception e){
+//
+//                         }
+//                         echo "app_size:${app_size}"
+//                         pgy_build_id = json.data.buildBuildVersion
+//                         pgy_build_key = json.data.buildKey
+//                         echo "debug_0"
+//                         pgy_download_url = "https://www.pgyer.com/apiv2/app/install?_api_key=${pgy_api_key}&buildKey=${pgy_build_key}&buildPassword=${pgy_install_password}"
+//                         if(json.code != 0){
+//                             throw new RuntimeException("upload pgy fail")
+//                         }
+//                          echo "finish upload pgy"
+//                     }catch(Exception e){
+//                         throw new RuntimeException("upload pgy fail")
+//                     }
+//
+//                 }
+//             }
+//         }
     
     }
 //     post {
