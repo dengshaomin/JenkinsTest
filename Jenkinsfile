@@ -69,6 +69,7 @@ pipeline {
                                 def entry = entries[j]
                                 commit_log += "${count}.${entry.msg}(${entry.author}-${changeTime(entry.timestamp)})<br>"
                                 count++
+                                echo "${count}"
                             }
                         }
                         build = build.previousBuild
