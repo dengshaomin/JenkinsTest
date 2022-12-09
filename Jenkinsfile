@@ -39,7 +39,8 @@ pipeline {
                         }
                     }
                     def x = 1.60349941253662109375
-                    echo "zz:${Math.round(x*100)/100}"
+                                        app_size = Math.round(x*100)/100
+                                        echo "${app_size}"
                 }
 
             }
