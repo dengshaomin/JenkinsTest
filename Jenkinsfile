@@ -67,7 +67,7 @@ pipeline {
                             def entries = changeLogSets[i].items
                             for (int j = 0; j < entries.length; j++) {
                                 def entry = entries[j]
-                                commit_log += "${count}.${entry.msg}(${changeTime(entry.timestamp)}) \n"
+                                commit_log += "${count}.${entry.msg}(${changeTime(entry.timestamp)})<br>"
                                 count++
                             }
                         }
