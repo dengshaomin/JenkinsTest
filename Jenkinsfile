@@ -118,14 +118,15 @@ pipeline {
                         def json = readJSON text: result // !need pipeline-utility-steps plugin
                         echo "$json"
                         def v =  json.data.buildFileSize/(1024*1024)
+                        echo "$v"
                         try{
                             v = (v as String).substring(0,5)
                         }catch(Exception e){
                         }
                         app_size = v
+                        echo "$app_size"
                         pgy_build_id = json.data.buildBuildVersion
                         pgy_build_key = json.data.buildKey
-                        echo "debug_0"
                         pgy_download_url = "https://www.pgyer.com/apiv2/app/install?_api_key=${pgy_api_key}&buildKey=${pgy_build_key}&buildPassword=${pgy_install_password}"
                         if (json.code != 0) {
                             throw new RuntimeException("upload pgy fail")
