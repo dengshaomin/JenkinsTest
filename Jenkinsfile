@@ -172,7 +172,37 @@ pipeline {
                                     {
                                         "tag":"div",
                                         "text":{
-                                            "content":"${feishu_msg_content}",
+                                            "content":"蒲公英id：${pgy_build_id}",
+                                            "tag":"lark_md"
+                                        }
+                                    },{
+                                        "tag":"div",
+                                        "text":{
+                                            "content":"App大小：${app_size}",
+                                            "tag":"lark_md"
+                                        }
+                                    },{
+                                        "tag":"div",
+                                        "text":{
+                                            "content":"编译人：${jenkins_build_author}",
+                                            "tag":"lark_md"
+                                        }
+                                    },{
+                                        "tag":"div",
+                                        "text":{
+                                            "content":"编译分支：${jenkins_build_branch}",
+                                            "tag":"lark_md"
+                                        }
+                                    },{
+                                        "tag":"div",
+                                        "text":{
+                                            "content":"编译耗时：${jenkins_build_time}",
+                                            "tag":"lark_md"
+                                        }
+                                    },{
+                                        "tag":"div",
+                                        "text":{
+                                            "content":"提交日志：${commit_log}",
                                             "tag":"lark_md"
                                         }
                                     },
