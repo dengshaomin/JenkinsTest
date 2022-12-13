@@ -406,7 +406,7 @@ pipeline {
                 </html>
                     """,
                 charset: 'utf-8',
-                from: 'pe_app_ci@nioint.com', //若果设置了会使用该邮件发送，否则使用配置的管理员账号发送
+                from: "$send_email_from", //若果设置了会使用该邮件发送，否则使用配置的管理员账号发送
                 mimeType: 'text/html',
                 to: "$send_email_to"
              }
