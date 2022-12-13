@@ -401,16 +401,15 @@ pipeline {
                 mimeType: 'text/html',
                 to: "$send_email_to"
              }
-            failure {
+//             failure {
 //                 echo 'send email fail'
-
-            }
-            unstable {
+//             }
+//             unstable {
 //                 echo 'send email fail'
-            }
-            changed {
+//             }
+//             changed {
 //                 echo 'send email fail'
-            }
+//             }
     }
 }
 
