@@ -201,11 +201,12 @@ pipeline {
                                             }
                                         ],
                                         "tag":"action"
-                                    },
-                                    {
-                                    	"tag": "at",
-                                    	"user_id": "all",
-                                    	"user_name": "所有人"
+                                    },{
+                                    "tag": "div",
+                                    "text": {
+                                    	"content": "at所有人<at id=all></at>",
+                                    	"tag": "lark_md"
+                                    	}
                                     }
                                 ]
                             }
