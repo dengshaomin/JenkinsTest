@@ -45,24 +45,25 @@ pipeline {
                     jenkins_build_id = currentBuild.number
                     jenkins_build_branch = '${Branch}'
                     jenkins_build_url = env.JOB_DISPLAY_URL
+                    echo "分支名：${Branch}"
                 }
             }
         }
 
-        stage('拉取代码') { //不适用scm时手动拉代码（不能使用GitParameter 分支或标签参数）；scm会自动拉代码
-            steps {
-                script{
-                    try {
-                        echo "start fetch code"
-                        git branch: 'master', credentialsId: 'f4b64596-e95b-4af3-88dd-46b9f3cac084', url: 'git@github.com:dengshaomin/JenkinsTest.git'
-                        echo "fnish fetch code"
-                    } catch(Exception e){
-                        echo "fail fetch code"
-                        echo "${e.message}"
-                    }
-                }
-            }
-        }
+//         stage('拉取代码') { //不适用scm时手动拉代码（不能使用GitParameter 分支或标签参数）；scm会自动拉代码
+//             steps {
+//                 script{
+//                     try {
+//                         echo "start fetch code"
+//                         git branch: 'master', credentialsId: 'f4b64596-e95b-4af3-88dd-46b9f3cac084', url: 'git@github.com:dengshaomin/JenkinsTest.git'
+//                         echo "fnish fetch code"
+//                     } catch(Exception e){
+//                         echo "fail fetch code"
+//                         echo "${e.message}"
+//                     }
+//                 }
+//             }
+//         }
         stage('获取提交日志') {
             steps {
                 script {
@@ -401,14 +402,14 @@ pipeline {
                 to: "$send_email_to"
              }
             failure {
-                echo 'send email fail'
+//                 echo 'send email fail'
 
             }
             unstable {
-                echo 'send email fail'
+//                 echo 'send email fail'
             }
             changed {
-                echo 'send email fail'
+//                 echo 'send email fail'
             }
     }
 }
