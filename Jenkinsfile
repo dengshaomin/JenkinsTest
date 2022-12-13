@@ -78,7 +78,7 @@ pipeline {
                                 def entry = entries[j]
                                 def tmp_content = "${count}.${entry.msg}(${entry.author}-${changeTime(entry.timestamp)})"
                                 commit_log += "${tmp_content}<br>"
-                                feishu_commit_log += "${tmp_content}；"
+                                feishu_commit_log += "${tmp_content}\\n"
                                 count++
                             }
                         }
@@ -154,7 +154,7 @@ pipeline {
         stage('飞书') {
             steps {
                 script{
-//                     feishu_msg_content = "蒲公英id：${pgy_build_id}\nApp大小：${app_size}\n编译人：${jenkins_build_author}\n编译分支：${jenkins_build_branch}\n编译耗时：${jenkins_build_time}\n提交日志：${commit_log}\n"
+
                     sh("""
                         curl https://open.feishu.cn/open-apis/bot/v2/hook/5d7b3ada-5f0f-4fbf-b4af-6a5b067d227e -H 'Content-type: application/json' -d '
                         {
@@ -174,37 +174,7 @@ pipeline {
                                     {
                                         "tag":"div",
                                         "text":{
-                                            "content":"蒲公英id：${pgy_build_id}",
-                                            "tag":"lark_md"
-                                        }
-                                    },{
-                                        "tag":"div",
-                                        "text":{
-                                            "content":"App大小：${app_size}",
-                                            "tag":"lark_md"
-                                        }
-                                    },{
-                                        "tag":"div",
-                                        "text":{
-                                            "content":"编译人：${jenkins_build_author}",
-                                            "tag":"lark_md"
-                                        }
-                                    },{
-                                        "tag":"div",
-                                        "text":{
-                                            "content":"编译分支：${jenkins_build_branch}",
-                                            "tag":"lark_md"
-                                        }
-                                    },{
-                                        "tag":"div",
-                                        "text":{
-                                            "content":"编译耗时：${jenkins_build_time}",
-                                            "tag":"lark_md"
-                                        }
-                                    },{
-                                        "tag":"div",
-                                        "text":{
-                                            "content":"提交日志：${feishu_commit_log}",
+                                            "content":"蒲公英id：${pgy_build_id}\\nApp大小：${app_size}M\\n编译人：${jenkins_build_author}\\n编译分支：${jenkins_build_branch}\\n编译耗时：${jenkins_build_time}\\n提交日志：${feishu_commit_log}",
                                             "tag":"lark_md"
                                         }
                                     },
