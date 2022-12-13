@@ -174,7 +174,7 @@ pipeline {
                                     {
                                         "tag":"div",
                                         "text":{
-                                            "content":"蒲公英id：${pgy_build_id}\\nApp大小：${app_size}M\\n编译人：${jenkins_build_author}\\n编译分支：${jenkins_build_branch}\\n编译耗时：${jenkins_build_time}\\n提交日志：${feishu_commit_log}",
+                                            "content":"蒲公英id：${pgy_build_id}\\n\\nApp大小：${app_size}M\\n\\n编译人：${jenkins_build_author}\\n\\n编译分支：${jenkins_build_branch}\\n\\n编译耗时：${jenkins_build_time}\\n\\n提交日志：\\n${feishu_commit_log}",
                                             "tag":"lark_md"
                                         }
                                     },
@@ -187,7 +187,7 @@ pipeline {
                                                     "tag":"lark_md"
                                                 },
                                                 "url":"${pgy_download_url}",
-                                                "type":"default",
+                                                "type":"primary",
                                                 "value":{}
                                             },
                                             {
