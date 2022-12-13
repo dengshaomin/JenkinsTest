@@ -201,6 +201,11 @@ pipeline {
                                             }
                                         ],
                                         "tag":"action"
+                                    },
+                                    {
+                                    	"tag": "at",
+                                    	"user_id": "all",
+                                    	"user_name": "所有人"
                                     }
                                 ]
                             }
