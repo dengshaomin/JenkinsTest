@@ -21,6 +21,7 @@ def app_name = ""
 def app_size = 0
 def start_build_time = 0
 def apk_root_dir = "apks"
+def feishu_msg_content = ""
 pipeline {
     agent any
     // parameters {
@@ -151,6 +152,7 @@ pipeline {
         stage('飞书') {
             steps {
                 script{
+                    feishu_msg_content = "蒲公英id：${pgy_build_id}\nApp大小：${app_size}\n编译人：${jenkins_build_author}\n编译分支：${jenkins_build_branch}\n编译耗时：${jenkins_build_time}\n提交日志：${commit_log}\n"
                     sh("""
                         curl https://open.feishu.cn/open-apis/bot/v2/hook/5d7b3ada-5f0f-4fbf-b4af-6a5b067d227e -H 'Content-type: application/json' -d '
                         {
@@ -170,7 +172,7 @@ pipeline {
                                     {
                                         "tag":"div",
                                         "text":{
-                                            "content":"123",
+                                            "content":"${feishu_msg_content}",
                                             "tag":"lark_md"
                                         }
                                     },
