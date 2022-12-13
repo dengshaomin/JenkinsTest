@@ -43,7 +43,7 @@ pipeline {
                     }
                     jenkins_build_author = currentBuild.buildCauses.shortDescription
                     jenkins_build_id = currentBuild.number
-                    jenkins_build_branch = ${Branch}
+                    jenkins_build_branch = '${Branch}'
                     jenkins_build_url = env.JOB_DISPLAY_URL
                 }
             }
