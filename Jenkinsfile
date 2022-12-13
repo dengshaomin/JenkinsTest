@@ -22,6 +22,7 @@ def app_size = 0
 def start_build_time = 0
 def apk_root_dir = "apks"
 def feishu_commit_log = ""
+def feishu_webhook_url = "https://open.feishu.cn/open-apis/bot/v2/hook/5d7b3ada-5f0f-4fbf-b4af-6a5b067d227e"
 pipeline {
     agent any
     // parameters {
@@ -156,7 +157,7 @@ pipeline {
                 script{
 
                     sh("""
-                        curl https://open.feishu.cn/open-apis/bot/v2/hook/5d7b3ada-5f0f-4fbf-b4af-6a5b067d227e -H 'Content-type: application/json' -d '
+                        curl ${feishu_webhook_url} -H 'Content-type: application/json' -d '
                         {
                             "msg_type":"interactive",
                             "card":{
