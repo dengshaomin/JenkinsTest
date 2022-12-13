@@ -45,7 +45,6 @@ pipeline {
                     jenkins_build_id = currentBuild.number
                     jenkins_build_branch = "${Branch}"
                     jenkins_build_url = env.JOB_DISPLAY_URL
-                    echo "分支名：${Branch} -- ${jenkins_build_branch}"
                 }
             }
         }
@@ -171,7 +170,7 @@ pipeline {
                                     {
                                         "tag":"div",
                                         "text":{
-                                            "content":"蒲公英id：${pgy_build_id}\nApp大小：${app_size}\n编译人：${jenkins_build_author}\n编译分支：${jenkins_build_branch}\n编译耗时：${jenkins_build_time}\n提交日志：${commit_log}\n",
+                                            "content":"123",
                                             "tag":"lark_md"
                                         }
                                     },
