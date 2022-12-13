@@ -204,7 +204,7 @@ pipeline {
                                     },{
                                     "tag": "div",
                                     "text": {
-                                    	"content": "at所有人<at id=all></at>",
+                                    	"content": "<at id=all></at>",
                                     	"tag": "lark_md"
                                     	}
                                     }
